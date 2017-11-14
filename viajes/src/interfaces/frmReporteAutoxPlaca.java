@@ -7,12 +7,14 @@ package interfaces;
 
 import java.sql.Connection;
 import java.util.Map;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JRViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import org.apache.commons.collections.map.HashedMap;
 
@@ -90,8 +92,18 @@ public class frmReporteAutoxPlaca extends javax.swing.JInternalFrame {
             parametros.put("placa", txtReportePlaca.getText());
             JasperReport reporte= JasperCompileManager.compileReport("src\\reportes\\reporteAutoxPlaca.jrxml");
             JasperPrint imprimir= JasperFillManager.fillReport(reporte, parametros,cn);
-            JasperViewer.viewReport(imprimir,false);
+            //JasperViewer.viewReport(imprimir,false);
+           JInternalFrame frame = new JInternalFrame("Reporte");
+            frame.getContentPane().add(new JRViewer(imprimir));
+           frame.pack();
+          frame.setResizable(true);
+           frame.setClosable(true);
+           frame.setMaximizable(true);
+           frame.setSize(1000,700);
+           //menú n = new menú();
            
+           menú.jDesktopPane1.add(frame);
+           frame.setVisible(true);
         } catch (JRException ex) {
             JOptionPane.showMessageDialog(null,"eeee"+ex);
         }

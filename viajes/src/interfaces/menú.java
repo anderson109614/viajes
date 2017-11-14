@@ -10,12 +10,14 @@ import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JRViewer;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -134,8 +136,18 @@ public class menú extends javax.swing.JFrame {
             Connection cn = cc.conectar();
             JasperReport reporte= JasperCompileManager.compileReport("src\\reportes\\reporteAuto.jrxml");
             JasperPrint imprimir= JasperFillManager.fillReport(reporte, null,cn);
-            JasperViewer.viewReport(imprimir,false);
+           // JasperViewer.viewReport(imprimir,false);
+           JInternalFrame frame = new JInternalFrame("Reporte");
+           frame.getContentPane().add(new JRViewer(imprimir));
+           frame.pack();
+          frame.setResizable(true);
+           frame.setClosable(true);
+           frame.setMaximizable(true);
+           frame.setSize(1000,700);
+           jDesktopPane1.add(frame);
            
+            frame.setVisible(true);
+
         } catch (JRException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -185,7 +197,7 @@ public class menú extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    public static javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     public javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
