@@ -22,7 +22,7 @@
      auto.`AUT_COLOR` AS auto_AUT_COLOR,
      auto.`AUT_ANIO` AS auto_AUT_ANIO,
      auto.`AUT_DESCRIPCION` AS auto_AUT_DESCRIPCION,
-     auto.`AUT_EST` AS auto_AUT_EST
+     auto.`AUT_ESTADO` AS auto_AUT_ESTADO
 FROM
      `auto` auto
 WHERE auto.`AUT_PLACA` = $P{placa}]]>
@@ -33,7 +33,7 @@ WHERE auto.`AUT_PLACA` = $P{placa}]]>
 	<field name="auto_AUT_COLOR" class="java.lang.String"/>
 	<field name="auto_AUT_ANIO" class="java.lang.Integer"/>
 	<field name="auto_AUT_DESCRIPCION" class="java.lang.String"/>
-	<field name="auto_AUT_EST" class="java.lang.String"/>
+	<field name="auto_AUT_ESTADO" class="java.lang.String"/>
 	<variable name="auto_AUT_PLACA_1" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{auto_AUT_PLACA}]]></variableExpression>
 	</variable>
@@ -110,7 +110,7 @@ WHERE auto.`AUT_PLACA` = $P{placa}]]>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="460" y="0" width="92" height="15" forecolor="#736343" uuid="5776c3c1-318e-449e-86d9-5f953016b994"/>
-				<text><![CDATA[EST]]></text>
+				<text><![CDATA[ESTADO]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -140,7 +140,7 @@ WHERE auto.`AUT_PLACA` = $P{placa}]]>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement style="Detail" x="460" y="0" width="92" height="15" uuid="aa682f32-695a-43cd-862b-95fbf3ce817b"/>
-					<textFieldExpression><![CDATA[$F{auto_AUT_EST}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{auto_AUT_ESTADO}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

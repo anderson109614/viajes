@@ -44,7 +44,8 @@ public class frmReporteAutoxPlaca extends javax.swing.JInternalFrame {
         txtReportePlaca = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Ingrese la PLaca");
 
@@ -105,7 +106,7 @@ public class frmReporteAutoxPlaca extends javax.swing.JInternalFrame {
            menú.jDesktopPane1.add(frame);
            frame.setVisible(true);
         } catch (JRException ex) {
-            JOptionPane.showMessageDialog(null,"eeee"+ex);
+            JOptionPane.showMessageDialog(null,"1"+ ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

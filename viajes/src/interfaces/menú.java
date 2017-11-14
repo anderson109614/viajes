@@ -134,7 +134,7 @@ public class menú extends javax.swing.JFrame {
             // TODO add your handling code here:
             conexionViaje cc = new conexionViaje();
             Connection cn = cc.conectar();
-            JasperReport reporte= JasperCompileManager.compileReport("src\\reportes\\reporteAuto.jrxml");
+            JasperReport reporte= JasperCompileManager.compileReport("src\\reportes\\reporteAutoxPlaca.jrxml");
             JasperPrint imprimir= JasperFillManager.fillReport(reporte, null,cn);
            // JasperViewer.viewReport(imprimir,false);
            JInternalFrame frame = new JInternalFrame("Reporte");
