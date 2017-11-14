@@ -232,6 +232,29 @@ public class usuarios extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+    public void borrar() {
+        int n = JOptionPane.showConfirmDialog(null, "Estás seguro de eliminar?");
+        if (n == 0) {
+
+            conexionViaje cc = new conexionViaje();
+            Connection cn = cc.conectar();
+            String sql = "";
+            sql="delete from usuarios where USU_CEDULA='"+txtCedula.getText()+"'";
+//            sql = "update usuario set AUT_ESTADO='0' where AUT_PLACA='" + txtPlaca.getText() + "'";
+            try {
+                PreparedStatement psd = cn.prepareStatement(sql);
+                psd.executeUpdate();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        } else {
+            cargarTablaUsuarios("");
+            txtBloqueo();
+            txtLimpiar();
+        }
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -506,7 +529,11 @@ public class usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-
+        borrar();
+        cargarTablaUsuarios("");
+        txtBloqueo();
+        txtLimpiar();
+        BotonesInicio();
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

@@ -372,6 +372,29 @@ public class Viajes extends javax.swing.JFrame {
         return i;
 
     }
+     public void borrar() {
+        int n = JOptionPane.showConfirmDialog(null, "Estás seguro de eliminar?");
+        if (n == 0) {
+
+            conexionViaje cc = new conexionViaje();
+            Connection cn = cc.conectar();
+            String sql = "";
+            sql="delete from viajes where VIA_CODIGO='"+txtCodigo.getText()+"'";
+//            sql = "update usuario set AUT_ESTADO='0' where AUT_PLACA='" + txtPlaca.getText() + "'";
+            try {
+                PreparedStatement psd = cn.prepareStatement(sql);
+                psd.executeUpdate();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        } else {
+            cargarTablaViajes("");
+            txtBloqueo();
+            txtLimpiar();
+        }
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
