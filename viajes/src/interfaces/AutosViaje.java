@@ -72,7 +72,7 @@ public class AutosViaje extends javax.swing.JInternalFrame {
         conexionViaje cc = new conexionViaje();
         Connection cn = cc.conectar();
         String sql = "";
-        sql = "SELECT * FROM auto WHERE AUT_PLACA LIKE '%" + Dato + "%' AND AUT_EST='1'  ORDER BY AUT_PLACA";
+        sql = "SELECT * FROM auto WHERE AUT_PLACA LIKE '%" + Dato + "%' AND AUT_ESTADO='1'  ORDER BY AUT_PLACA";
         try {
             Statement psd = cn.createStatement();
             ResultSet rs = psd.executeQuery(sql);
@@ -219,7 +219,7 @@ public class AutosViaje extends javax.swing.JInternalFrame {
             Connection cn = cc.conectar();
             String sql = "";
 //           sql="DELETE FROM auto WHERE AUT_PLACA='"+txtPlaca.getText()+"'";
-            sql = "UPDATE AUTO SET AUT_EST='0' WHERE AUT_PLACA='" + txtPlaca.getText() + "'";
+            sql = "UPDATE AUTO SET AUT_ESTADO='0' WHERE AUT_PLACA='" + txtPlaca.getText() + "'";
             try {
                 PreparedStatement psd = cn.prepareStatement(sql);
                 psd.executeUpdate();
@@ -267,7 +267,7 @@ public class AutosViaje extends javax.swing.JInternalFrame {
             }
 
             String sql = "";
-            sql = "INSERT INTO AUTO(AUT_PLACA, AUT_MARCA,AUT_MODELO,AUT_COLOR,AUT_ANIO,AUT_DESCRIPCION,AUT_EST)"
+            sql = "INSERT INTO AUTO(AUT_PLACA, AUT_MARCA,AUT_MODELO,AUT_COLOR,AUT_ANIO,AUT_DESCRIPCION,AUT_ESTADO)"
                     + " VALUES(?,?,?,?,?,?,'1')";
             try {
                 PreparedStatement psd = cn.prepareStatement(sql);

@@ -93,7 +93,7 @@ public class frmReporteAutoxPlaca extends javax.swing.JInternalFrame {
             JasperViewer.viewReport(imprimir,false);
            
         } catch (JRException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+            JOptionPane.showMessageDialog(null,"eeee"+ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

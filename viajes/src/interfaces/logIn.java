@@ -157,7 +157,7 @@ public class logIn extends javax.swing.JFrame {
                 String var2 = rs.getString("USU_CLAVE");
                 String var5 = rs.getString("USU_PERFIL");
                 if (var1.equals(var3) && var2.equals(var4)) {
-                    if ("CONTADOR".equals(var5)) {
+                    if ("SECRETARIA".equals(var5)) {
                         this.dispose();
                         menú men = new menú();
                         men.jMenu2.setEnabled(false);

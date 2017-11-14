@@ -209,12 +209,14 @@ public class usuarios extends javax.swing.JFrame {
     public void actualizar() {
         conexionViaje cc = new conexionViaje();
         Connection cn = cc.conectar();
+        String contraseña= txtComtraseña.getText();
+        String encap=DigestUtils.md5Hex(contraseña);
         String sql = "";
         sql = "update usuarios set usu_cedula='" + txtCedula.getText() + "'"
                 + ",USU_NOMBRE='" + txtNombre.getText() + "'"
                 + ",USU_APELLIDO='" + txtApellido.getText() + "'"
                 + ",USU_PERFIL='" + cmbPerfil.getSelectedItem().toString().toUpperCase() + "'"
-                + ",USU_CLAVE='" + txtComtraseña.getText() + "'"
+                + ",USU_CLAVE='" + encap + "'"
                 + " Where USU_CEDULA='" + txtCedula.getText() + "'";
         try {
             PreparedStatement psd = cn.prepareStatement(sql);
