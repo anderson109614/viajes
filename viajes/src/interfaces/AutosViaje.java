@@ -102,7 +102,7 @@ public class AutosViaje extends javax.swing.JInternalFrame {
             });
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo actualizar los datos. Intentelo nuevamente");
         }
     }
 
@@ -146,7 +146,6 @@ public class AutosViaje extends javax.swing.JInternalFrame {
             psd.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
             return false;
         }
 
@@ -224,7 +223,7 @@ public class AutosViaje extends javax.swing.JInternalFrame {
                 txtLimpiar();
                 BotonesInicio();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex);
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar los datos. Intentelo nuevamente");
             }
         } else {
             cargarTablaAutos("");
@@ -282,7 +281,7 @@ public class AutosViaje extends javax.swing.JInternalFrame {
                 }
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex);
+                JOptionPane.showMessageDialog(null, "Error en el ingreso de datos. Intentelo nuevamente");
             }
 
         }
@@ -310,7 +309,7 @@ public class AutosViaje extends javax.swing.JInternalFrame {
             txtBloqueo();
             BotonesInicio();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo actualizar los datos. Intentelo nuevamente");
         }
 
     }
