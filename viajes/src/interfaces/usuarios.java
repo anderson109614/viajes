@@ -91,7 +91,7 @@ public class usuarios extends javax.swing.JFrame {
     }
 
     public void guardar() {
-        if (txtCedula.getText().isEmpty()) {
+        if (txtCedula.getText().isEmpty() || verificarCedula(txtCedula.getText())==0) {
             JOptionPane.showMessageDialog(null, "Debe ingresar cédula válida");
             txtCedula.requestFocus();
         } else if (txtNombre.getText().isEmpty()) {
@@ -141,7 +141,7 @@ public class usuarios extends javax.swing.JFrame {
                     }
 
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, ex);
+                    JOptionPane.showMessageDialog(null, "Usuario ya existente");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Las Contraseñas no coinciden");
@@ -255,6 +255,41 @@ public class usuarios extends javax.swing.JFrame {
         }
 
     }
+    public static int verificarCedula(String ced) { 
+        int par, impar, tot, x, dv, z;
+        par = 0;
+        impar = 0;
+        if (ced.length() == 10) {
+            for (int i = 0; i <= 9; i++) {
+                if (ced.charAt(i) < '0' || ced.charAt(i) > '9') {
+                }
+            }
+            for (int i = 1; i <= 8; i += 2) {
+                par += Character.getNumericValue(ced.charAt(i));
+            }
+            for (int i = 0; i <= 8; i += 2) {
+                x = (Character.getNumericValue(ced.charAt(i))) * 2;
+                if (x > 9) {
+                    x = x - 9;
+                }
+                impar += x;
+            }
+            tot = par + impar;
+            z = (((tot / 10) + 1) * 10) - tot;
+            dv = Character.getNumericValue(ced.charAt(9));
+            if (z == 10) {
+                z = 0;
+            }
+            if (z == dv) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -387,6 +422,18 @@ public class usuarios extends javax.swing.JFrame {
         jLabel5.setText("Contraseña:");
 
         jLabel6.setText("Confirmar Contraseña:");
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
 
         cmbPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMINISTRADOR", "SECRETARIA" }));
 
@@ -540,9 +587,31 @@ public class usuarios extends javax.swing.JFrame {
         this.dispose();      // TODO add your handling code here:
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+         char c=evt.getKeyChar();  
+         if(Character.isDigit(c)) { 
+              getToolkit().beep(); 
+              evt.consume(); 
+              JOptionPane.showMessageDialog(null,"Ingrese Solo Letras"); 
+         }  
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        char c=evt.getKeyChar();  
+         if(Character.isDigit(c)) { 
+              getToolkit().beep(); 
+              evt.consume(); 
+              JOptionPane.showMessageDialog(null,"Ingrese Solo Letras"); 
+         }              // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoKeyTyped
+     
+             
+             
+             
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
