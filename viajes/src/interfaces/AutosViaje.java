@@ -250,15 +250,15 @@ public class AutosViaje extends javax.swing.JInternalFrame {
             conexionViaje cc = new conexionViaje();
             Connection cn = cc.conectar();
             String AUT_PLACA, AUT_MARCA, AUT_MODELO, AUT_COLOR, AUT_ANIO, AUT_DESCRIPCION;
-            AUT_PLACA = txtPlaca.getText();
-            AUT_MARCA = txtMarca.getText();
-            AUT_MODELO = txtModelo.getText();
-            AUT_COLOR = txtColor.getText();
+            AUT_PLACA = txtPlaca.getText().toUpperCase();
+            AUT_MARCA = txtMarca.getText().toUpperCase();
+            AUT_MODELO = txtModelo.getText().toUpperCase();
+            AUT_COLOR = txtColor.getText().toUpperCase();
             AUT_ANIO = txtAño.getText();
             if (txtObservacion.getText().isEmpty()) {
                 AUT_DESCRIPCION = "Sin Informacion";
             } else {
-                AUT_DESCRIPCION = txtObservacion.getText();
+                AUT_DESCRIPCION = txtObservacion.getText().toUpperCase();
             }
 
             String sql = "";
@@ -292,12 +292,12 @@ public class AutosViaje extends javax.swing.JInternalFrame {
         conexionViaje cc = new conexionViaje();
         Connection cn = cc.conectar();
         String sql = "";
-        sql = "UPDATE auto SET AUT_MARCA='" + txtMarca.getText() + "'"
-                + ",AUT_MODELO='" + txtModelo.getText() + "'"
-                + ",AUT_COLOR='" + txtColor.getText() + "'"
+        sql = "UPDATE auto SET AUT_MARCA='" + txtMarca.getText().toUpperCase() + "'"
+                + ",AUT_MODELO='" + txtModelo.getText().toUpperCase() + "'"
+                + ",AUT_COLOR='" + txtColor.getText().toUpperCase() + "'"
                 + ",AUT_ANIO=" + txtAño.getText() + ""
-                + ",AUT_DESCRIPCION='" + txtObservacion.getText() + "'"
-                + " WHERE AUT_PLACA='" + txtPlaca.getText() + "'";
+                + ",AUT_DESCRIPCION='" + txtObservacion.getText().toUpperCase() + "'"
+                + " WHERE AUT_PLACA='" + txtPlaca.getText().toUpperCase() + "'";
         try {
             PreparedStatement psd = cn.prepareStatement(sql);
             int n = psd.executeUpdate();

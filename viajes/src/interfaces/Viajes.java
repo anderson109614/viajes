@@ -237,8 +237,7 @@ public class Viajes extends javax.swing.JInternalFrame {
 //            VIA_FECHALLEGADA = String.valueOf(sdf.format(date));
             
          VIA_FECHASALIDA=fechaSalida.getText();
-         VIA_FECHALLEGADA=fechaLLegada.getText();
-            // JOptionPane.showMessageDialog(null,VIA_FECHASALIDA);
+         VIA_FECHALLEGADA=fechaLLegada.getText(); // JOptionPane.showMessageDialog(null,VIA_FECHASALIDA);
             if (txtDescripcion.getText().isEmpty()) {
                 VIA_DESCRIPCION = "Sin Informacion";
             } else {

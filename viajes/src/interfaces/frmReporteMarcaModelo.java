@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -72,7 +73,7 @@ public class frmReporteMarcaModelo extends javax.swing.JFrame {
                     .addComponent(txtMarca))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addGap(135, 135, 135))
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,13 +91,17 @@ public class frmReporteMarcaModelo extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jButton1)))
-                .addContainerGap(231, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        imprimirReporte();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void imprimirReporte() throws HeadlessException {
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
@@ -108,11 +113,11 @@ public class frmReporteMarcaModelo extends javax.swing.JFrame {
             JasperReport reporte= JasperCompileManager.compileReport("src\\reportes\\reporteAutoxMarca.jrxml");
             JasperPrint imprimir= JasperFillManager.fillReport(reporte, parametros,cn);
             JasperViewer.viewReport(imprimir,false);
-           
+            
         } catch (JRException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
     /**
      * @param args the command line arguments

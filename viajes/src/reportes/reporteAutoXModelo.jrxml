@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d129550d-9894-4119-8ed1-655784e69b68">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="modelo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     auto.`AUT_PLACA` AS auto_AUT_PLACA,
+     auto.`AUT_MARCA` AS auto_AUT_MARCA,
+     auto.`AUT_MODELO` AS auto_AUT_MODELO,
+     auto.`AUT_COLOR` AS auto_AUT_COLOR,
+     auto.`AUT_ANIO` AS auto_AUT_ANIO,
+     auto.`AUT_DESCRIPCION` AS auto_AUT_DESCRIPCION,
+     auto.`AUT_ESTADO` AS auto_AUT_ESTADO
+FROM
+     `auto` auto
+
+where auto.`AUT_MODELO` = $P{modelo}]]>
+	</queryString>
+	<field name="auto_AUT_PLACA" class="java.lang.String"/>
+	<field name="auto_AUT_MARCA" class="java.lang.String"/>
+	<field name="auto_AUT_MODELO" class="java.lang.String"/>
+	<field name="auto_AUT_COLOR" class="java.lang.String"/>
+	<field name="auto_AUT_ANIO" class="java.lang.Integer"/>
+	<field name="auto_AUT_DESCRIPCION" class="java.lang.String"/>
+	<field name="auto_AUT_ESTADO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="5" width="263" height="33" forecolor="#000000" backcolor="#000000" uuid="2a98c50d-090b-458c-8d52-bd01a28ee54f"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[REPORTE AUTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="355" y="48" width="200" height="22" forecolor="#000000" uuid="e06e0da5-d216-4b16-a0fc-5aaa3083a2e7"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[MODELO AUTOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="ac4d6c41-3456-44e1-ab53-61527e7e5ae3"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="79" height="15" uuid="a3b4b223-9b4c-4fb3-bd22-d9b587d035cd"/>
+				<text><![CDATA[auto_AUT_PLACA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="79" y="19" width="79" height="15" uuid="4d02070c-4ec5-44d7-8681-90b79267500b"/>
+				<text><![CDATA[auto_AUT_MARCA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="158" y="19" width="79" height="15" uuid="8f2f5668-7096-4c46-b222-4ba7cdfba7b6"/>
+				<text><![CDATA[auto_AUT_MODELO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="237" y="19" width="79" height="15" uuid="fe46ede1-063b-4864-8937-657b7fc3f92e"/>
+				<text><![CDATA[auto_AUT_COLOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="316" y="19" width="79" height="15" uuid="62aa9a98-f16e-4466-8c89-370a72504a67"/>
+				<text><![CDATA[auto_AUT_ANIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="395" y="19" width="79" height="15" uuid="c943d43d-a1ba-41d6-b9fa-e4a02faecf51"/>
+				<text><![CDATA[auto_AUT_DESCRIPCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="474" y="19" width="79" height="15" uuid="9d886af0-c15b-463b-bdd2-f116a30e53f4"/>
+				<text><![CDATA[auto_AUT_ESTADO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="51b95982-9241-4bba-a0f3-d570cd0e0c83"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="79" height="15" uuid="1843fd8d-e682-45a1-89d3-9aec33bbfe60"/>
+				<textFieldExpression><![CDATA[$F{auto_AUT_PLACA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="79" y="0" width="79" height="15" uuid="bbc69dcf-5dfe-4fc8-9324-06b90540227a"/>
+				<textFieldExpression><![CDATA[$F{auto_AUT_MARCA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="158" y="0" width="79" height="15" uuid="500f8b9a-5afb-4f5e-843f-f9f72b1f560c"/>
+				<textFieldExpression><![CDATA[$F{auto_AUT_MODELO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="237" y="0" width="79" height="15" uuid="c4ea8335-649c-4699-90c3-74d1cf8d65d5"/>
+				<textFieldExpression><![CDATA[$F{auto_AUT_COLOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="316" y="0" width="79" height="15" uuid="82d6fcf7-e7ba-4f7c-bc18-8c7460b28d52"/>
+				<textFieldExpression><![CDATA[$F{auto_AUT_ANIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="395" y="0" width="79" height="15" uuid="2b7036b8-e39d-4134-9011-5dde0c1247e2"/>
+				<textFieldExpression><![CDATA[$F{auto_AUT_DESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="474" y="0" width="79" height="15" uuid="b2d81843-975c-462f-8034-53a7ae070ffe"/>
+				<textFieldExpression><![CDATA[$F{auto_AUT_ESTADO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="d7354a0f-d333-4107-832d-e5b64f7922f4"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="830cac95-4710-428a-b4cf-608f2256a82d"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="6a74e795-f59b-437e-80b2-479d11ba4e57"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="b10430a9-d1c7-4a85-8fb2-139a8506de0c"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
