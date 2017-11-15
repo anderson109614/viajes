@@ -62,8 +62,18 @@ public class logIn extends javax.swing.JFrame {
         });
 
         txtusuario.setText(" ");
+        txtusuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtusuarioKeyTyped(evt);
+            }
+        });
 
         btncancelar.setText("Cancelar");
+        btncancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/folder.png"))); // NOI18N
         jLabel3.setText(" ");
@@ -142,6 +152,19 @@ public class logIn extends javax.swing.JFrame {
         cargarUsuarios();
     }//GEN-LAST:event_btnaceptarActionPerformed
 
+    private void txtusuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtusuarioKeyTyped
+        char c=evt.getKeyChar();  
+        if(Character.isLetter(c)) { 
+              getToolkit().beep(); 
+              evt.consume(); 
+              JOptionPane.showMessageDialog(null,"Ingrese sólo números");  
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_txtusuarioKeyTyped
+
+    private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btncancelarActionPerformed
+
     public void cargarUsuarios() throws HeadlessException {
         String var3 = txtusuario.getText().trim();
         String var4 = DigestUtils.md5Hex(txtcalve.getText().trim());
@@ -162,13 +185,15 @@ public class logIn extends javax.swing.JFrame {
                         menú men = new menú();
                         men.jMenu2.setEnabled(false);
                         men.setExtendedState(MAXIMIZED_BOTH);
+                        men.jMenuItem5.setEnabled(false);
                         men.setVisible(true);
                         
                     } else {
                         if ("ADMINISTRADOR".equals(var5)) {
                             this.dispose();
                             menú men = new menú();
-                            men.jMenu2.setEnabled(false);
+                            men.jMenu2.setEnabled(true);
+                            men.jMenuItem1.setEnabled(false);
                             men.jMenuItem2.setEnabled(false); 
                             men.jMenuItem5.setEnabled(true);
                             men.setExtendedState(MAXIMIZED_BOTH);
