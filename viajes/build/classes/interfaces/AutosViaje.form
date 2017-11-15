@@ -180,12 +180,24 @@
         <Component class="javax.swing.JTextField" name="txtPlaca">
         </Component>
         <Component class="javax.swing.JTextField" name="txtMarca">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMarcaKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtModelo">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModeloKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtColor">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtColorKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtA&#xf1;o">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtA&#xf1;oKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtObservacion">
         </Component>

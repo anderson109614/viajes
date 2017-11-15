@@ -370,6 +370,24 @@ public class AutosViaje extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Observacion");
 
+        txtMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMarcaKeyTyped(evt);
+            }
+        });
+
+        txtModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtModeloKeyTyped(evt);
+            }
+        });
+
+        txtColor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtColorKeyTyped(evt);
+            }
+        });
+
         txtAño.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtAñoKeyTyped(evt);
@@ -645,7 +663,7 @@ public class AutosViaje extends javax.swing.JInternalFrame {
     private void txtAñoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAñoKeyTyped
         // TODO add your handling code here:
         if (txtAño.getText().length() <= 4) {
-            if (Character.isDigit(evt.getKeyChar())) {
+            if (!Character.isDigit(evt.getKeyChar())) {
                 getToolkit().beep();
                 evt.consume();
             }
@@ -655,6 +673,30 @@ public class AutosViaje extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_txtAñoKeyTyped
+
+    private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isLetter(evt.getKeyChar())) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMarcaKeyTyped
+
+    private void txtModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isLetter(evt.getKeyChar())) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtModeloKeyTyped
+
+    private void txtColorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColorKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isLetter(evt.getKeyChar())) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtColorKeyTyped
 
     /**
      * @param args the command line arguments
