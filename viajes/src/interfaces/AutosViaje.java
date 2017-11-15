@@ -50,8 +50,7 @@ public class AutosViaje extends javax.swing.JInternalFrame {
                 }
             }
         });
-        
-        
+
     }
     DefaultTableModel model;
 
@@ -89,71 +88,68 @@ public class AutosViaje extends javax.swing.JInternalFrame {
             tblAutos.setModel(model);
 
             model.addTableModelListener(new TableModelListener() {
-            @Override
-            public void tableChanged(TableModelEvent e) {// guardado de la iformacion directo del jtable
-                if(e.getType()==TableModelEvent.UPDATE){
-                    int columna=e.getColumn();
-                    int fila= e.getFirstRow();
-                    if(Act_tabla(columna,fila)){
-                        JOptionPane.showMessageDialog(null, "Actualizacion correcta");
+                @Override
+                public void tableChanged(TableModelEvent e) {// guardado de la iformacion directo del jtable
+                    if (e.getType() == TableModelEvent.UPDATE) {
+                        int columna = e.getColumn();
+                        int fila = e.getFirstRow();
+                        if (Act_tabla(columna, fila)) {
+                            JOptionPane.showMessageDialog(null, "Actualizacion correcta");
+                        }
+
                     }
-                    
-                    
-                    
                 }
-            }
-        });
-            
+            });
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
-    
-    public boolean Act_tabla(int col,int fil){
-            conexionViaje cc = new conexionViaje();
-            Connection cn = cc.conectar();
-            String sql = "";
-        if(col==1){
-           
-            sql = "UPDATE AUTO SET AUT_MARCA='"+tblAutos.getValueAt(fil, col)+"' "
+
+    public boolean Act_tabla(int col, int fil) {
+        conexionViaje cc = new conexionViaje();
+        Connection cn = cc.conectar();
+        String sql = "";
+        if (col == 1) {
+
+            sql = "UPDATE AUTO SET AUT_MARCA='" + tblAutos.getValueAt(fil, col) + "' "
                     + "WHERE AUT_PLACA='" + tblAutos.getValueAt(fil, 0) + "'";
-            
+
         }
-        if(col==2){
-           
-            sql = "UPDATE AUTO SET AUT_MODELO='"+tblAutos.getValueAt(fil, col)+"' "
+        if (col == 2) {
+
+            sql = "UPDATE AUTO SET AUT_MODELO='" + tblAutos.getValueAt(fil, col) + "' "
                     + "WHERE AUT_PLACA='" + tblAutos.getValueAt(fil, 0) + "'";
-            
+
         }
-        if(col==3){
-           
-            sql = "UPDATE AUTO SET AUT_COLOR='"+tblAutos.getValueAt(fil, col)+"' "
+        if (col == 3) {
+
+            sql = "UPDATE AUTO SET AUT_COLOR='" + tblAutos.getValueAt(fil, col) + "' "
                     + "WHERE AUT_PLACA='" + tblAutos.getValueAt(fil, 0) + "'";
-            
+
         }
-        if(col==4){
-           
-            sql = "UPDATE AUTO SET AUT_ANIO='"+tblAutos.getValueAt(fil, col)+"' "
+        if (col == 4) {
+
+            sql = "UPDATE AUTO SET AUT_ANIO='" + tblAutos.getValueAt(fil, col) + "' "
                     + "WHERE AUT_PLACA='" + tblAutos.getValueAt(fil, 0) + "'";
-            
+
         }
-        if(col==5){
-           
-            sql = "UPDATE AUTO SET AUT_DESCRIPCION='"+tblAutos.getValueAt(fil, col)+"' "
+        if (col == 5) {
+
+            sql = "UPDATE AUTO SET AUT_DESCRIPCION='" + tblAutos.getValueAt(fil, col) + "' "
                     + "WHERE AUT_PLACA='" + tblAutos.getValueAt(fil, 0) + "'";
-            
+
         }
-        
+
         try {
-                PreparedStatement psd = cn.prepareStatement(sql);
-                psd.executeUpdate();
-                return true;
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex);
-                return false;
-            }
-        
-        
+            PreparedStatement psd = cn.prepareStatement(sql);
+            psd.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            return false;
+        }
+
     }
 
     public void txtLimpiar() {
@@ -373,6 +369,12 @@ public class AutosViaje extends javax.swing.JInternalFrame {
         jLabel5.setText("Año");
 
         jLabel6.setText("Observacion");
+
+        txtAño.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAñoKeyTyped(evt);
+            }
+        });
 
         jLabel7.setText("Buscar por Placa");
 
@@ -639,6 +641,20 @@ public class AutosViaje extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         borrar();
     }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void txtAñoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAñoKeyTyped
+        // TODO add your handling code here:
+        if (txtAño.getText().length() <= 4) {
+            if (Character.isDigit(evt.getKeyChar())) {
+                getToolkit().beep();
+                evt.consume();
+            }
+        } else {
+            getToolkit().beep();
+            evt.consume();
+        }
+
+    }//GEN-LAST:event_txtAñoKeyTyped
 
     /**
      * @param args the command line arguments

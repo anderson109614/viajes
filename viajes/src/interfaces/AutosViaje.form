@@ -186,6 +186,9 @@
         <Component class="javax.swing.JTextField" name="txtColor">
         </Component>
         <Component class="javax.swing.JTextField" name="txtA&#xf1;o">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtA&#xf1;oKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtObservacion">
         </Component>
