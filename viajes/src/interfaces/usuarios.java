@@ -22,7 +22,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  *
  * @author Gaby
  */
-public class usuarios extends javax.swing.JFrame {
+public class usuarios extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form usuarios
@@ -57,11 +57,7 @@ public class usuarios extends javax.swing.JFrame {
         String[] titulos = {"CEDULA", "NOMBRE", "APELLIDO", "PERFIL", "CLAVE"};
         model = new DefaultTableModel(null, titulos) {
             public boolean isCellEditable(int row, int column) {
-                // bloqueo de la primara columna
-                if (column == 0) {
-                    return false;
-                }
-                return true;
+                return false; 
             }
         ;
         };
@@ -324,7 +320,11 @@ public class usuarios extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -422,6 +422,12 @@ public class usuarios extends javax.swing.JFrame {
         jLabel5.setText("Contraseña:");
 
         jLabel6.setText("Confirmar Contraseña:");
+
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
+            }
+        });
 
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -604,6 +610,15 @@ public class usuarios extends javax.swing.JFrame {
               JOptionPane.showMessageDialog(null,"Ingrese Solo Letras"); 
          }              // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        char c=evt.getKeyChar();  
+        if(Character.isLetter(c)) { 
+              getToolkit().beep(); 
+              evt.consume(); 
+              JOptionPane.showMessageDialog(null,"Ingrese sólo números");  
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaKeyTyped
      
              
              

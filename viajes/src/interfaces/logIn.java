@@ -77,7 +77,7 @@ public class logIn extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
                 .addGap(22, 22, 22)
@@ -168,8 +168,9 @@ public class logIn extends javax.swing.JFrame {
                         if ("ADMINISTRADOR".equals(var5)) {
                             this.dispose();
                             menú men = new menú();
-                            men.jMenu2.setEnabled(true);
-                            men.jMenuItem2.setEnabled(false);
+                            men.jMenu2.setEnabled(false);
+                            men.jMenuItem2.setEnabled(false); 
+                            men.jMenuItem5.setEnabled(true);
                             men.setExtendedState(MAXIMIZED_BOTH);
                             men.setVisible(true);
                         }
