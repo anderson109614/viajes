@@ -281,7 +281,7 @@ public class AutosViaje extends javax.swing.JInternalFrame {
                 }
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error en el ingreso de datos. Intentelo nuevamente");
+                JOptionPane.showMessageDialog(null, "Error en el ingreso de datos, placa existente. Intentelo nuevamente");
             }
 
         }
@@ -677,7 +677,7 @@ public class AutosViaje extends javax.swing.JInternalFrame {
 
     private void txtAñoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAñoKeyTyped
         // TODO add your handling code here:
-        if (txtAño.getText().length() <= 4) {
+        if (txtAño.getText().length() < 4) {
             if (!Character.isDigit(evt.getKeyChar())) {
                 getToolkit().beep();
                 evt.consume();
@@ -699,10 +699,10 @@ public class AutosViaje extends javax.swing.JInternalFrame {
 
     private void txtModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyTyped
         // TODO add your handling code here:
-        if (!Character.isLetter(evt.getKeyChar())) {
-            getToolkit().beep();
-            evt.consume();
-        }
+//        if (!Character.isLetter(evt.getKeyChar())) {
+//            getToolkit().beep();
+//            evt.consume();
+//        }
     }//GEN-LAST:event_txtModeloKeyTyped
 
     private void txtColorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColorKeyTyped

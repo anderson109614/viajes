@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.util.Map;
 import javax.swing.JInternalFrame;
@@ -41,13 +42,14 @@ public class frmReporteAutoxPlaca extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtReportePlaca = new javax.swing.JTextField();
+        txtReportes = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Ingrese la PLaca");
+        jLabel1.setText("Buscar por:");
 
         jButton1.setText("Reporte");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -56,18 +58,27 @@ public class frmReporteAutoxPlaca extends javax.swing.JInternalFrame {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "GENERAL", "PLACA", "MARCA", "MODELO", "AÑO" }));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(txtReportePlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,40 +86,109 @@ public class frmReporteAutoxPlaca extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtReportePlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(txtReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        imprimirReporte();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+            if (jComboBox1.getSelectedItem().equals("GENERAL")) {
+                txtReportes.setEnabled(false);
+            }else{
+                 txtReportes.setEnabled(true);
+            }
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    public void imprimirReporte() throws HeadlessException {
         // TODO add your handling code here:
-         try {
+        try {
             // TODO add your handling code here:
             conexionViaje cc = new conexionViaje();
             Connection cn = cc.conectar();
-            Map parametros= new HashedMap();
-            parametros.put("placa", txtReportePlaca.getText());
-            JasperReport reporte= JasperCompileManager.compileReport("src\\reportes\\reporteAutoxPlaca.jrxml");
-            JasperPrint imprimir= JasperFillManager.fillReport(reporte, parametros,cn);
+            Map parametros = new HashedMap();
+            if (jComboBox1.getSelectedItem().equals("PLACA")) {
+                parametros.put("placa", txtReportes.getText());
+                JasperReport reporte = JasperCompileManager.compileReport("src\\reportes\\reporteAutoxPlaca.jrxml");
+                JasperPrint imprimir = JasperFillManager.fillReport(reporte, parametros, cn);
+                JInternalFrame frame = new JInternalFrame("Reporte");
+                frame.getContentPane().add(new JRViewer(imprimir));
+                frame.pack();
+                frame.setResizable(true);
+                frame.setClosable(true);
+                frame.setMaximizable(true);
+                frame.setSize(1000, 700);
+                menú.jDesktopPane1.add(frame);
+                frame.setVisible(true);
+            } if (jComboBox1.getSelectedItem().equals("MODELO")) {
+                parametros.put("modelo", txtReportes.getText());
+                JasperReport reporte = JasperCompileManager.compileReport("src\\reportes\\reporteAutoxModelo.jrxml");
+                JasperPrint imprimir = JasperFillManager.fillReport(reporte, parametros, cn);
+                JInternalFrame frame = new JInternalFrame("Reporte");
+                frame.getContentPane().add(new JRViewer(imprimir));
+                frame.pack();
+                frame.setResizable(true);
+                frame.setClosable(true);
+                frame.setMaximizable(true);
+                frame.setSize(1000, 700);
+                menú.jDesktopPane1.add(frame);
+                frame.setVisible(true);
+            } if (jComboBox1.getSelectedItem().equals("MARCA")) {
+                parametros.put("marca", txtReportes.getText());
+                JasperReport reporte = JasperCompileManager.compileReport("src\\reportes\\reporteAutoxMarca.jrxml");
+                JasperPrint imprimir = JasperFillManager.fillReport(reporte, parametros, cn);
+                JInternalFrame frame = new JInternalFrame("Reporte");
+                frame.getContentPane().add(new JRViewer(imprimir));
+                frame.pack();
+                frame.setResizable(true);
+                frame.setClosable(true);
+                frame.setMaximizable(true);
+                frame.setSize(1000, 700);
+                menú.jDesktopPane1.add(frame);
+                frame.setVisible(true);
+            } if (jComboBox1.getSelectedItem().equals("AÑO")) {
+                parametros.put("año", txtReportes.getText());
+                JasperReport reporte = JasperCompileManager.compileReport("src\\reportes\\reporteAutoxAño.jrxml");
+                JasperPrint imprimir = JasperFillManager.fillReport(reporte, parametros, cn);
+                JInternalFrame frame = new JInternalFrame("Reporte");
+                frame.getContentPane().add(new JRViewer(imprimir));
+                frame.pack();
+                frame.setResizable(true);
+                frame.setClosable(true);
+                frame.setMaximizable(true);
+                frame.setSize(1000, 700);
+                menú.jDesktopPane1.add(frame);
+                frame.setVisible(true);
+            } if(jComboBox1.getSelectedItem().equals("SELECCIONE")){
+                JOptionPane.showMessageDialog(null, "SELECCIONE OPCION");
+            } if (jComboBox1.getSelectedItem().equals("GENERAL")) {
+//                parametros.put("año", txtReportes.getText());
+                JasperReport reporte = JasperCompileManager.compileReport("src\\reportes\\reporteAuto.jrxml");
+                JasperPrint imprimir = JasperFillManager.fillReport(reporte, parametros, cn);
+                JInternalFrame frame = new JInternalFrame("Reporte");
+                frame.getContentPane().add(new JRViewer(imprimir));
+                frame.pack();
+                frame.setResizable(true);
+                frame.setClosable(true);
+                frame.setMaximizable(true);
+                frame.setSize(1000, 700);
+                menú.jDesktopPane1.add(frame);
+                frame.setVisible(true);
+            }
+            
+            
             //JasperViewer.viewReport(imprimir,false);
-           JInternalFrame frame = new JInternalFrame("Reporte");
-            frame.getContentPane().add(new JRViewer(imprimir));
-           frame.pack();
-          frame.setResizable(true);
-           frame.setClosable(true);
-           frame.setMaximizable(true);
-           frame.setSize(1000,700);
-           //menú n = new menú();
-           
-           menú.jDesktopPane1.add(frame);
-           frame.setVisible(true);
         } catch (JRException ex) {
-            JOptionPane.showMessageDialog(null,"1"+ ex);
+            JOptionPane.showMessageDialog(null, "1" + ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
     /**
      * @param args the command line arguments
@@ -147,7 +227,8 @@ public class frmReporteAutoxPlaca extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField txtReportePlaca;
+    private javax.swing.JTextField txtReportes;
     // End of variables declaration//GEN-END:variables
 }

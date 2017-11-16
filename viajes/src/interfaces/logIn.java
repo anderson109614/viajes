@@ -27,6 +27,42 @@ public class logIn extends javax.swing.JFrame {
     public logIn() {
         initComponents();
         lblerror.setVisible(false);
+        this.setLocationRelativeTo(null);
+    }
+    
+    public static int verificarCedula(String ced) { 
+        int par, impar, tot, x, dv, z;
+        par = 0;
+        impar = 0;
+        if (ced.length() == 10) {
+            for (int i = 0; i <= 9; i++) {
+                if (ced.charAt(i) < '0' || ced.charAt(i) > '9') {
+                }
+            }
+            for (int i = 1; i <= 8; i += 2) {
+                par += Character.getNumericValue(ced.charAt(i));
+            }
+            for (int i = 0; i <= 8; i += 2) {
+                x = (Character.getNumericValue(ced.charAt(i))) * 2;
+                if (x > 9) {
+                    x = x - 9;
+                }
+                impar += x;
+            }
+            tot = par + impar;
+            z = (((tot / 10) + 1) * 10) - tot;
+            dv = Character.getNumericValue(ced.charAt(9));
+            if (z == 10) {
+                z = 0;
+            }
+            if (z == dv) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -49,6 +85,7 @@ public class logIn extends javax.swing.JFrame {
         txtcalve = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jLabel1.setText("Usuario");
 
@@ -122,10 +159,11 @@ public class logIn extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel3)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtcalve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(lblerror, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblerror, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtcalve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnaceptar)
@@ -171,6 +209,7 @@ public class logIn extends javax.swing.JFrame {
     }//GEN-LAST:event_btncancelarActionPerformed
 
     public void cargarUsuarios() throws HeadlessException {
+        
         String var3 = txtusuario.getText().trim();
         String var4 = DigestUtils.md5Hex(txtcalve.getText().trim());
         conexionViaje cc = new conexionViaje();
@@ -198,8 +237,8 @@ public class logIn extends javax.swing.JFrame {
                             this.dispose();
                             menú men = new menú();
                             men.jMenu2.setEnabled(true);
-                            men.jMenuItem1.setEnabled(false);
-                            men.jMenuItem2.setEnabled(false); 
+                            men.jMenuItem1.setEnabled(true);
+                            men.jMenuItem2.setEnabled(true); 
                             men.jMenuItem5.setEnabled(true);
                             men.setExtendedState(MAXIMIZED_BOTH);
                             men.setVisible(true);

@@ -20,7 +20,9 @@
 FROM
      `auto` auto
 
-where auto.`AUT_MODELO` = $P{modelo}]]>
+where auto.`AUT_MODELO` = $P{modelo}
+
+and auto.`AUT_ESTADO` = 1]]>
 	</queryString>
 	<field name="auto_AUT_PLACA" class="java.lang.String"/>
 	<field name="auto_AUT_MARCA" class="java.lang.String"/>
@@ -59,31 +61,27 @@ where auto.`AUT_MODELO` = $P{modelo}]]>
 			</line>
 			<staticText>
 				<reportElement style="Column header" x="0" y="19" width="79" height="15" uuid="a3b4b223-9b4c-4fb3-bd22-d9b587d035cd"/>
-				<text><![CDATA[auto_AUT_PLACA]]></text>
+				<text><![CDATA[PLACA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="79" y="19" width="79" height="15" uuid="4d02070c-4ec5-44d7-8681-90b79267500b"/>
-				<text><![CDATA[auto_AUT_MARCA]]></text>
+				<text><![CDATA[MARCA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="158" y="19" width="79" height="15" uuid="8f2f5668-7096-4c46-b222-4ba7cdfba7b6"/>
-				<text><![CDATA[auto_AUT_MODELO]]></text>
+				<text><![CDATA[MODELO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="237" y="19" width="79" height="15" uuid="fe46ede1-063b-4864-8937-657b7fc3f92e"/>
-				<text><![CDATA[auto_AUT_COLOR]]></text>
+				<text><![CDATA[COLOR]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="316" y="19" width="79" height="15" uuid="62aa9a98-f16e-4466-8c89-370a72504a67"/>
-				<text><![CDATA[auto_AUT_ANIO]]></text>
+				<text><![CDATA[AÑO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="395" y="19" width="79" height="15" uuid="c943d43d-a1ba-41d6-b9fa-e4a02faecf51"/>
-				<text><![CDATA[auto_AUT_DESCRIPCION]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="474" y="19" width="79" height="15" uuid="9d886af0-c15b-463b-bdd2-f116a30e53f4"/>
-				<text><![CDATA[auto_AUT_ESTADO]]></text>
+				<text><![CDATA[DESCRIPCION]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -118,10 +116,6 @@ where auto.`AUT_MODELO` = $P{modelo}]]>
 			<textField>
 				<reportElement style="Detail" x="395" y="0" width="79" height="15" uuid="2b7036b8-e39d-4134-9011-5dde0c1247e2"/>
 				<textFieldExpression><![CDATA[$F{auto_AUT_DESCRIPCION}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement style="Detail" x="474" y="0" width="79" height="15" uuid="b2d81843-975c-462f-8034-53a7ae070ffe"/>
-				<textFieldExpression><![CDATA[$F{auto_AUT_ESTADO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

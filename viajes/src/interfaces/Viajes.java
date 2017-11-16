@@ -10,9 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -45,11 +47,11 @@ public class Viajes extends javax.swing.JInternalFrame {
         cmbCiudadDestino.setSelectedIndex(0);
         cmbPlacas.insertItemAt("SELECCIONE", 0);
         cmbPlacas.setSelectedIndex(0);
-         String formato= "YYYY/MM/dd";
-         SimpleDateFormat sdf = new SimpleDateFormat(formato);
+        String formato = "YYYY/MM/dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(formato);
         fechaSalida.setDateFormat(sdf);
         fechaLLegada.setDateFormat(sdf);
-        
+
         tblViajes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
@@ -59,7 +61,7 @@ public class Viajes extends javax.swing.JInternalFrame {
                     cmbPlacas.setSelectedItem(tblViajes.getValueAt(fila, 1).toString().trim());
                     cmbCiudadOrigen.setSelectedItem(tblViajes.getValueAt(fila, 2).toString().trim());
                     cmbCiudadDestino.setSelectedItem(tblViajes.getValueAt(fila, 3).toString().trim());
-                    
+
                     fechaSalida.setText(tblViajes.getValueAt(fila, 4).toString().trim());
                     fechaLLegada.setText(tblViajes.getValueAt(fila, 5).toString().trim());
 //                    fechaSalida.setDateFormatString(tblViajes.getValueAt(fila, 4).toString().trim());
@@ -119,13 +121,12 @@ public class Viajes extends javax.swing.JInternalFrame {
     public void cargarTablaViajes(String Dato) {
         String[] titulos = {"CODIGO", "PLACA", "CIU ORIGEN", "CIU DESTINO", "FECHA SALIDA", "FECHA LLEGADA",
             "HORA SALIDA", "HORA LLEGADA", "COSTO", "DESCRIPCION"};
-        model = new DefaultTableModel(null, titulos){
+        model = new DefaultTableModel(null, titulos) {
             public boolean isCellEditable(int row, int column) {
-                // bloqueo de la primara columna
-                if (column == 0) {
+                 
+                 
                     return false;
-                }
-                return true;
+                 
             }
         ;
         };
@@ -159,18 +160,18 @@ public class Viajes extends javax.swing.JInternalFrame {
         }
 
     }
-    
+
     public void actualizar() {
         conexionViaje cc = new conexionViaje();
         Connection cn = cc.conectar();
         String sql = "";
-        sql = "update viajes set via_codigo='" + txtCodigo.getText() + "'" 
-                + ",AUT_PLACA='" + cmbPlacas.getSelectedItem()+ "'"
+        sql = "update viajes set via_codigo='" + txtCodigo.getText() + "'"
+                + ",AUT_PLACA='" + cmbPlacas.getSelectedItem() + "'"
                 + ",CIU_CODIGO='" + cmbCiudadOrigen.getSelectedItem().toString().charAt(0) + "'"
                 + ",CIU_CIU_CODIGO='" + cmbCiudadDestino.getSelectedItem().toString().charAt(0) + "'"
-                 + ",VIA_FECHASALIDA='" + fechaSalida.getText() + "'"
+                + ",VIA_FECHASALIDA='" + fechaSalida.getText() + "'"
                 + ",VIA_FECHALLEGADA='" + fechaLLegada.getText() + "'"
-                + ",VIA_HORASALIDA='" +  fmtHoraSalida.getText() + "'"
+                + ",VIA_HORASALIDA='" + fmtHoraSalida.getText() + "'"
                 + ",VIA_HORALLEGADA='" + fmtHoraLlegada.getText() + "'"
                 + ",VIA_COSTO=" + txtCosto.getText() + ""
                 + ",VIA_DESCRIPCION='" + txtDescripcion.getText() + "'"
@@ -189,7 +190,9 @@ public class Viajes extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
-    public void guardar() {
+
+    public boolean guardar() throws ParseException {
+        boolean estado = false;
         if (cmbPlacas.getSelectedItem().equals("SELECCIONE")) {
             JOptionPane.showMessageDialog(null, "Debe ingresar una opción");
             cmbPlacas.requestFocus();
@@ -202,30 +205,30 @@ public class Viajes extends javax.swing.JInternalFrame {
         } else if (fechaLLegada.getText()
                 .equals("")) {
             JOptionPane.showMessageDialog(null, "Debe ingresar una Fecha");
-        } else if (fmtHoraSalida.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar hora");
-        } else if (fmtHoraLlegada.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar hora");
+        } else if (!validarHoras(fmtHoraSalida.getText())) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar hora correcta");
+        } else if (!validarHoras(fmtHoraLlegada.getText())) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar hora correcta");
         } else if (txtCosto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe ingresar costo");
-        } else {
+        } else if (validarFechas()) {
 
             conexionViaje cc = new conexionViaje();
             Connection cn = cc.conectar();
-            String VIA_CODIGO,AUT_PLACA,  VIA_FECHASALIDA, VIA_FECHALLEGADA, VIA_HORASALIDA,
-                    VIA_HORALLEGADA,  VIA_DESCRIPCION;
+            String VIA_CODIGO, AUT_PLACA, VIA_FECHASALIDA, VIA_FECHALLEGADA, VIA_HORASALIDA,
+                    VIA_HORALLEGADA, VIA_DESCRIPCION;
             char CIU_CODIGO, CIU_CIU_CODIGO;
             float VIA_COSTO;
 //            int viaje=generarNumeroViaje();
             VIA_CODIGO = txtCodigo.getText();
-            AUT_PLACA=cmbPlacas.getSelectedItem().toString();
-            CIU_CODIGO =cmbCiudadOrigen.getSelectedItem().toString().charAt(0);
+            AUT_PLACA = cmbPlacas.getSelectedItem().toString();
+            CIU_CODIGO = cmbCiudadOrigen.getSelectedItem().toString().charAt(0);
             CIU_CIU_CODIGO = cmbCiudadDestino.getSelectedItem().toString().charAt(0);
-            
+
             VIA_HORASALIDA = fmtHoraSalida.getText();
             VIA_HORALLEGADA = fmtHoraLlegada.getText();
-            VIA_COSTO =Float.valueOf( txtCosto.getText());
-            VIA_COSTO=(float) ((float)Math.round(VIA_COSTO * 100d) / 100d); 
+            VIA_COSTO = Float.valueOf(txtCosto.getText());
+            VIA_COSTO = (float) ((float) Math.round(VIA_COSTO * 100d) / 100d);
 
             /// extraccion de las fechas del DataChooser
 //            String formato= fechaSalida.getDateFormatString();
@@ -235,9 +238,8 @@ public class Viajes extends javax.swing.JInternalFrame {
 //            VIA_FECHASALIDA =  String.valueOf(sdf.format(date));
 //            date = fechaLLegada.getDate();
 //            VIA_FECHALLEGADA = String.valueOf(sdf.format(date));
-            
-         VIA_FECHASALIDA=fechaSalida.getText();
-         VIA_FECHALLEGADA=fechaLLegada.getText(); // JOptionPane.showMessageDialog(null,VIA_FECHASALIDA);
+            VIA_FECHASALIDA = fechaSalida.getText();
+            VIA_FECHALLEGADA = fechaLLegada.getText(); // JOptionPane.showMessageDialog(null,VIA_FECHASALIDA);
             if (txtDescripcion.getText().isEmpty()) {
                 VIA_DESCRIPCION = "Sin Informacion";
             } else {
@@ -247,7 +249,7 @@ public class Viajes extends javax.swing.JInternalFrame {
             String sql = "";
             sql = "INSERT INTO VIAJES(VIA_CODIGO,AUT_PLACA, CIU_CODIGO,CIU_CIU_CODIGO, VIA_FECHASALIDA,"
                     + " VIA_FECHALLEGADA, VIA_HORASALIDA, VIA_HORALLEGADA,VIA_COSTO,VIA_DESCRIPCION)"
-                    + " VALUES(?,?,?,?,'"+VIA_FECHASALIDA+"','"+VIA_FECHALLEGADA+"',?,?,"+VIA_COSTO+",?)";
+                    + " VALUES(?,?,?,?,'" + VIA_FECHASALIDA + "','" + VIA_FECHALLEGADA + "',?,?," + VIA_COSTO + ",?)";
 
             try {
                 PreparedStatement psd = cn.prepareStatement(sql);
@@ -259,27 +261,45 @@ public class Viajes extends javax.swing.JInternalFrame {
 //                psd.setDate(6, VIA_FECHALLEGADA);
                 psd.setString(5, VIA_HORASALIDA);
                 psd.setString(6, VIA_HORALLEGADA);
-             
+
                 psd.setString(7, VIA_DESCRIPCION);
-                JOptionPane.showMessageDialog(null, psd.toString());
+                //JOptionPane.showMessageDialog(null, psd.toString());
                 int n = psd.executeUpdate();
 
                 if (n > 0) {
                     JOptionPane.showMessageDialog(null, "Se insertó la información correctamente");
                     cargarTablaViajes("");
                     txtLimpiar();
+                    estado = true;
                 }
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex);
+                JOptionPane.showMessageDialog(null, "Rango no válido");
             }
 
         }
+        return estado;
+    }
 
+    public boolean validarHoras(String horas) {
+
+        String hora = horas.substring(0, 2);
+        int h = Integer.valueOf(hora);
+        String minutos = horas.substring(3, 5);
+        int m = Integer.valueOf(minutos);
+         
+        if (fmtHoraSalida.getText().charAt(0) == ' ') {
+            return false;
+        } else if (h >= 24) {
+            return false;
+        } else if (m>59) {
+            return false;
+        }
+        return true;
     }
 
     public void txtLimpiar() {
-        txtCodigo.setText("");
+
         cmbPlacas.setSelectedItem("");
         cmbCiudadOrigen.setSelectedItem("");
         cmbCiudadDestino.setSelectedItem("");
@@ -296,7 +316,7 @@ public class Viajes extends javax.swing.JInternalFrame {
         btnGuardar.setEnabled(false);
         btnActualizar.setEnabled(false);
         btnCancelar.setEnabled(false);
-        btnBorrar.setEnabled(false);
+        //btnBorrar.setEnabled(false);
         btnSalir.setEnabled(true);
     }
 
@@ -305,17 +325,16 @@ public class Viajes extends javax.swing.JInternalFrame {
         btnGuardar.setEnabled(true);
         btnActualizar.setEnabled(false);
         btnCancelar.setEnabled(true);
-        btnBorrar.setEnabled(false);
+        //btnBorrar.setEnabled(false);
         btnSalir.setEnabled(true);
     }
-  
 
     public void BotonesActualizar() {
         btnNuevo.setEnabled(false);
         btnGuardar.setEnabled(false);
         btnActualizar.setEnabled(true);
         btnCancelar.setEnabled(true);
-        btnBorrar.setEnabled(true);
+        //btnBorrar.setEnabled(true);
         btnSalir.setEnabled(true);
     }
 
@@ -334,7 +353,7 @@ public class Viajes extends javax.swing.JInternalFrame {
     }
 
     public void txtDesBloqueo() {
-        txtCodigo.setEnabled(true);
+        txtCodigo.setEnabled(false);
         cmbPlacas.setEnabled(true);
         cmbCiudadOrigen.setEnabled(true);
         cmbCiudadDestino.setEnabled(true);
@@ -351,34 +370,34 @@ public class Viajes extends javax.swing.JInternalFrame {
         conexionViaje cc = new conexionViaje();
         Connection cn = cc.conectar();
         int i = 0;
-        
-            
-            try {
-                 
-                String sql = "SELECT count(VIA_CODIGO) "
-                        + "FROM VIAJES ";
-                PreparedStatement psd = cn.prepareStatement(sql); 
-                ResultSet rs = psd.executeQuery(sql);
 
-                while (rs.next()) {
-                    i = rs.getInt(1);
-                    txtCodigo.setText(String.valueOf(i+1));
-                }
+        try {
 
-            } catch (Exception e) {
+            String sql = "SELECT count(VIA_CODIGO) "
+                    + "FROM VIAJES ";
+            PreparedStatement psd = cn.prepareStatement(sql);
+            ResultSet rs = psd.executeQuery(sql);
+
+            while (rs.next()) {
+                i = rs.getInt(1);
+                txtCodigo.setText(String.valueOf(i + 1));
             }
-         
+
+        } catch (Exception e) {
+        }
+
         return i;
 
     }
-     public void borrar() {
+
+    public void borrar() {
         int n = JOptionPane.showConfirmDialog(null, "Estás seguro de eliminar?");
         if (n == 0) {
 
             conexionViaje cc = new conexionViaje();
             Connection cn = cc.conectar();
             String sql = "";
-            sql="delete from viajes where VIA_CODIGO='"+txtCodigo.getText()+"'";
+            sql = "delete from viajes where VIA_CODIGO='" + txtCodigo.getText() + "'";
 //            sql = "update usuario set AUT_ESTADO='0' where AUT_PLACA='" + txtPlaca.getText() + "'";
             try {
                 PreparedStatement psd = cn.prepareStatement(sql);
@@ -394,6 +413,50 @@ public class Viajes extends javax.swing.JInternalFrame {
         }
 
     }
+
+    public boolean validarFechas() throws ParseException {
+        Date fechaSalida1 = new Date();
+        String fechaSal = fechaSalida.getText();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        fechaSalida1 = formato.parse(fechaSal);
+
+        Date fechaLlegada1 = new Date();
+        String fechaLle = fechaLLegada.getText();
+
+        fechaLlegada1 = formato.parse(fechaLle);
+        GregorianCalendar fechaFin = new GregorianCalendar();
+        GregorianCalendar fechaInicio = new GregorianCalendar();
+        fechaInicio.setTime(fechaSalida1);
+
+        fechaFin.setTime(fechaLlegada1);
+        int dias = 0;
+        if (fechaFin.get(Calendar.YEAR) == fechaInicio.get(Calendar.YEAR)) {
+            dias = (fechaFin.get(Calendar.DAY_OF_YEAR) - fechaInicio.get(Calendar.DAY_OF_YEAR)) + 1;
+        } else {
+            int rangoAnyos;
+            int añoFin = fechaFin.get(Calendar.YEAR);
+            int añoIni = fechaInicio.get(Calendar.YEAR);
+            rangoAnyos = añoFin - añoIni;
+            for (int i = 0; i <= rangoAnyos; i++) {
+                int diasAnio = fechaInicio.isLeapYear(fechaInicio.get(Calendar.YEAR)) ? 366 : 365;
+                if (i == 0) {
+                    dias = 1 + dias + (diasAnio - fechaInicio.get(Calendar.DAY_OF_YEAR));
+                } else if (i == rangoAnyos) {
+                    dias = dias + fechaFin.get(Calendar.DAY_OF_YEAR);
+                } else {
+                    dias = dias + diasAnio;
+                }
+            }
+        }
+        if (dias < 1) {
+            JOptionPane.showMessageDialog(null, "Error fecha llegada invalida");
+            fechaLLegada.requestFocus();
+            return false;
+        }
+        return true;
+
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -416,13 +479,13 @@ public class Viajes extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        cmbCiudadOrigen = new javax.swing.JComboBox<String>();
-        cmbCiudadDestino = new javax.swing.JComboBox<String>();
+        cmbCiudadOrigen = new javax.swing.JComboBox<>();
+        cmbCiudadDestino = new javax.swing.JComboBox<>();
         txtDescripcion = new javax.swing.JTextField();
         txtCosto = new javax.swing.JTextField();
         fmtHoraSalida = new javax.swing.JFormattedTextField();
         fmtHoraLlegada = new javax.swing.JFormattedTextField();
-        cmbPlacas = new javax.swing.JComboBox<String>();
+        cmbPlacas = new javax.swing.JComboBox<>();
         fechaSalida = new datechooser.beans.DateChooserCombo();
         fechaLLegada = new datechooser.beans.DateChooserCombo();
         txtBuscarCodigo = new javax.swing.JTextField();
@@ -457,6 +520,8 @@ public class Viajes extends javax.swing.JInternalFrame {
         jLabel5.setText("Fecha Salida:");
 
         jLabel6.setText("Fecha Llegada:");
+
+        txtCodigo.setEnabled(false);
 
         jLabel7.setText("Hora Salida:");
 
@@ -581,7 +646,7 @@ public class Viajes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtBuscarCodigo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -632,6 +697,7 @@ public class Viajes extends javax.swing.JInternalFrame {
 
         btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar.png"))); // NOI18N
         btnBorrar.setText("Borrar");
+        btnBorrar.setEnabled(false);
         btnBorrar.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnBorrar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -670,17 +736,17 @@ public class Viajes extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnNuevo)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(btnGuardar)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(54, 54, 54))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -734,11 +800,11 @@ public class Viajes extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(42, 42, 42)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
@@ -758,13 +824,20 @@ public class Viajes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        guardar();  
-        BotonesInicio();
-        txtBloqueo();// TODO add your handling code here:
+        try {
+            if (guardar()) {
+                BotonesInicio();
+                txtBloqueo();
+                contadorViajes();
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(Viajes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        actualizar(); 
+        actualizar();
         BotonesInicio();
         txtBloqueo();
         // TODO add your handling code here:

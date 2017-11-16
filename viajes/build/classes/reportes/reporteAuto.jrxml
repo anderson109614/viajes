@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a3ee0695-e66f-4415-8f99-701f5df89961">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d405253c-3c87-451f-95cc-bfdd2d644e7c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<queryString language="SQL">
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
 		<![CDATA[SELECT
      auto.`AUT_PLACA` AS auto_AUT_PLACA,
      auto.`AUT_MARCA` AS auto_AUT_MARCA,
@@ -11,9 +21,11 @@
      auto.`AUT_COLOR` AS auto_AUT_COLOR,
      auto.`AUT_ANIO` AS auto_AUT_ANIO,
      auto.`AUT_DESCRIPCION` AS auto_AUT_DESCRIPCION,
-     auto.`AUT_EST` AS auto_AUT_EST
+     auto.`AUT_ESTADO` AS auto_AUT_ESTADO
 FROM
-     `auto` auto]]>
+     `auto` auto
+
+where auto.`AUT_ESTADO`=1]]>
 	</queryString>
 	<field name="auto_AUT_PLACA" class="java.lang.String"/>
 	<field name="auto_AUT_MARCA" class="java.lang.String"/>
@@ -21,168 +33,172 @@ FROM
 	<field name="auto_AUT_COLOR" class="java.lang.String"/>
 	<field name="auto_AUT_ANIO" class="java.lang.Integer"/>
 	<field name="auto_AUT_DESCRIPCION" class="java.lang.String"/>
-	<field name="auto_AUT_EST" class="java.lang.String"/>
-	<variable name="auto_AUT_PLACA_1" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{auto_AUT_PLACA}]]></variableExpression>
-	</variable>
+	<field name="auto_AUT_ESTADO" class="java.lang.String"/>
 	<background>
-		<band/>
+		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="72">
+		<band height="102" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="8c9ee4ad-4d26-4194-81ce-e2df5192c2e9"/>
+				<reportElement mode="Opaque" x="2" y="0" width="802" height="66" backcolor="#000000" uuid="3ee74d34-047f-4d0f-984f-fa39100e51fb"/>
 				<staticText>
-					<reportElement x="20" y="20" width="305" height="43" forecolor="#FFFFFF" uuid="077d9205-ec83-449b-a0e3-8635d205b173"/>
-					<textElement>
-						<font size="34" isBold="true"/>
+					<reportElement style="Title" x="0" y="0" width="426" height="66" uuid="19173f04-31bf-48cb-bfba-c1130d26e075"/>
+					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
+					<textElement verticalAlignment="Bottom">
+						<font isBold="false"/>
 					</textElement>
 					<text><![CDATA[REPORTE AUTOS]]></text>
 				</staticText>
 			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="70" width="802" height="32" forecolor="#000000" backcolor="#CC0000" uuid="c9b4ba45-9d55-4c78-ba12-6c268dc7e5af"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="658" y="12" width="144" height="20" forecolor="#FFFFFF" uuid="1b85711f-35b7-4126-8dbd-501d624ccc8b"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="13"/>
+		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="21">
-			<line>
-				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="d3824560-6b88-4eaf-940f-f324840fb075"/>
-			</line>
+		<band height="18" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="79" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="d9e11fdc-b19d-413f-82ea-ed8cad9efa21"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+				<reportElement style="Column header" x="0" y="0" width="113" height="18" forecolor="#000000" uuid="27151b73-1940-4b33-81fa-94930c044a3d"/>
+				<textElement>
+					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[PLACA]]></text>
+				<text><![CDATA[auto_AUT_PLACA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="79" y="0" width="79" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ad32aa8c-1306-46d1-b795-f741eaee6ea2"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+				<reportElement style="Column header" x="113" y="0" width="113" height="18" forecolor="#000000" uuid="3d8be18a-12d0-4749-adae-eb52436849b8"/>
+				<textElement>
+					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[MARCA]]></text>
+				<text><![CDATA[auto_AUT_MARCA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="158" y="0" width="79" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="2529498d-1f26-42bb-b04f-a63ff85184d5"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+				<reportElement style="Column header" x="226" y="0" width="113" height="18" forecolor="#000000" uuid="db2b70f2-e435-455b-9666-bee25ada77cf"/>
+				<textElement>
+					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[MODELO]]></text>
+				<text><![CDATA[auto_AUT_MODELO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="237" y="0" width="79" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="0f3cb150-a7a4-4f11-ac64-e9c46077317c"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+				<reportElement style="Column header" x="339" y="0" width="113" height="18" forecolor="#000000" uuid="4d5a1d4b-24eb-4b0e-82e0-be3c3045f5e3"/>
+				<textElement>
+					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[COLOR]]></text>
+				<text><![CDATA[auto_AUT_COLOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="316" y="0" width="79" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="5c30ac4f-14bc-4f23-9632-50dfe33f651a"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+				<reportElement style="Column header" x="452" y="0" width="113" height="18" forecolor="#000000" uuid="929149f1-e9ea-404f-8964-b7583a3114ae"/>
+				<textElement>
+					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[AÑO]]></text>
+				<text><![CDATA[auto_AUT_ANIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="395" y="0" width="79" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="da7c2a60-7030-469f-8a60-e912247a4ebd"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+				<reportElement style="Column header" x="565" y="0" width="113" height="18" forecolor="#000000" uuid="b278d435-3201-4836-bd46-43dff17762c8"/>
+				<textElement>
+					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[DESCRIPCION]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="474" y="0" width="79" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="17b86450-92a8-41cc-b108-5f257a6dcb3c"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ESTADO]]></text>
+				<text><![CDATA[auto_AUT_DESCRIPCION]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20">
-			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="d0bf18c7-d5d5-42d6-8adb-4354572c9860"/>
-			</line>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="79" height="20" uuid="93f5018d-a8f9-4193-9fe0-4f9aa0786618"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{auto_AUT_PLACA}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="79" y="0" width="79" height="20" uuid="6799900f-ad6e-41ff-96e7-d77404d3af72"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{auto_AUT_MARCA}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="158" y="0" width="79" height="20" uuid="6ad8d015-c068-4e58-9452-deae5d9fda5a"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{auto_AUT_MODELO}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="237" y="0" width="79" height="20" uuid="4361221e-5bf4-4d11-927c-ad772778584f"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{auto_AUT_COLOR}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="316" y="0" width="79" height="20" uuid="1463ab2b-d73d-494e-b39f-53ee91a5e031"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{auto_AUT_ANIO}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="395" y="0" width="79" height="20" uuid="bbbbaf30-aeff-497d-92bb-7d6ab11edba4"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{auto_AUT_DESCRIPCION}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="474" y="0" width="79" height="20" uuid="68c4b697-d17b-4381-97e0-895c7f9969be"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{auto_AUT_EST}]]></textFieldExpression>
-			</textField>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="797" height="18" uuid="bc340b12-b0fd-4d46-8ffb-bd298f7904cc"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="113" height="18" uuid="1820b030-4160-4090-99b2-0220d4f7af87"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{auto_AUT_PLACA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="113" y="0" width="113" height="18" uuid="653120c1-f4ee-4c84-aa36-b69e9fe8e420"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{auto_AUT_MARCA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="226" y="0" width="113" height="18" uuid="3e42660e-f536-4994-bca8-210909f8ebd4"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{auto_AUT_MODELO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="339" y="0" width="113" height="18" uuid="6f93c7c5-ffb5-4298-8ded-cd7ed639b9b4"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{auto_AUT_COLOR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="452" y="0" width="113" height="18" uuid="fba9a710-afde-4482-9bbe-6fcc85a84742"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{auto_AUT_ANIO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="565" y="0" width="113" height="18" uuid="c5cc2806-8789-4e0e-9f67-c0beab7f2790"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{auto_AUT_DESCRIPCION}]]></textFieldExpression>
+				</textField>
+			</frame>
 		</band>
 	</detail>
 	<columnFooter>
-		<band/>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="96a9b4c5-7e1d-4873-8841-136b73a38fbe"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="17">
-			<textField>
-				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="25babf87-6782-4d9a-be63-a18442bdb786"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="d0ca2127-a3cb-43f7-a03f-43458e9cba51"/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="0" y="4" width="100" height="13" uuid="b9ba1380-c1f1-425e-86fb-afa86ce2c8a9"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="25" forecolor="#D0B48E" backcolor="#000000" uuid="53f02b5a-3174-4300-a253-ba3543907d8d"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="757" y="3" width="40" height="20" forecolor="#FFFFFF" uuid="3b66cea7-0abb-446a-977b-1cf09cdf8c25"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="677" y="3" width="80" height="20" forecolor="#FFFFFF" uuid="b611f535-d736-47e7-a72b-ff3af19b04d7"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="3" width="197" height="20" forecolor="#FFFFFF" uuid="5e6a8cb7-634c-4298-be4a-9e9398883921"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="50">
-			<textField>
-				<reportElement x="0" y="0" width="100" height="20" uuid="6a361c8b-67c4-4b09-b548-e12bc11e7cc0"/>
-				<textFieldExpression><![CDATA[$V{auto_AUT_PLACA_1}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>
