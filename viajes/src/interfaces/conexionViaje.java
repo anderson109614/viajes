@@ -16,16 +16,16 @@ import javax.swing.JOptionPane;
  * @author ander
  */
 public class conexionViaje {
-    Connection conecct = null;
+    Connection conect = null;
     
     public Connection conectar(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conecct=DriverManager.getConnection("jdbc:mysql://localhost/viajes","root","");
+            conect=DriverManager.getConnection("jdbc:mysql://localhost/viajes","root","");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
-        return conecct;
+        return conect;
     }
     
     

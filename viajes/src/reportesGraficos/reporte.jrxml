@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0ad8ca5b-d5a2-4a3e-9c83-601bb399eb99">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     ciudad.`CIU_CODIGO` AS ciudad_CIU_CODIGO,
+     ciudad.`CIU_NOMBRE` AS ciudad_CIU_NOMBRE,
+     viajes.`VIA_CODIGO` AS viajes_VIA_CODIGO,
+     viajes.`AUT_PLACA` AS viajes_AUT_PLACA,
+     viajes.`CIU_CODIGO` AS viajes_CIU_CODIGO,
+     viajes.`CIU_CIU_CODIGO` AS viajes_CIU_CIU_CODIGO,
+     viajes.`VIA_FECHASALIDA` AS viajes_VIA_FECHASALIDA,
+     viajes.`VIA_FECHALLEGADA` AS viajes_VIA_FECHALLEGADA,
+     viajes.`VIA_HORASALIDA` AS viajes_VIA_HORASALIDA,
+     viajes.`VIA_HORALLEGADA` AS viajes_VIA_HORALLEGADA,
+     viajes.`VIA_COSTO` AS viajes_VIA_COSTO,
+     viajes.`VIA_DESCRIPCION` AS viajes_VIA_DESCRIPCION,
+     ciudad_A.`CIU_CODIGO` AS ciudad_A_CIU_CODIGO,
+     ciudad_A.`CIU_NOMBRE` AS ciudad_A_CIU_NOMBRE
+FROM
+     `ciudad` ciudad INNER JOIN `viajes` viajes ON ciudad.`CIU_CODIGO` = viajes.`CIU_CIU_CODIGO`
+     INNER JOIN `ciudad` ciudad_A ON viajes.`CIU_CODIGO` = ciudad_A.`CIU_CODIGO`]]>
+	</queryString>
+	<field name="ciudad_CIU_CODIGO" class="java.lang.String"/>
+	<field name="ciudad_CIU_NOMBRE" class="java.lang.String"/>
+	<field name="viajes_VIA_CODIGO" class="java.lang.Integer"/>
+	<field name="viajes_AUT_PLACA" class="java.lang.String"/>
+	<field name="viajes_CIU_CODIGO" class="java.lang.String"/>
+	<field name="viajes_CIU_CIU_CODIGO" class="java.lang.String"/>
+	<field name="viajes_VIA_FECHASALIDA" class="java.sql.Date"/>
+	<field name="viajes_VIA_FECHALLEGADA" class="java.sql.Date"/>
+	<field name="viajes_VIA_HORASALIDA" class="java.sql.Time"/>
+	<field name="viajes_VIA_HORALLEGADA" class="java.sql.Time"/>
+	<field name="viajes_VIA_COSTO" class="java.math.BigDecimal"/>
+	<field name="viajes_VIA_DESCRIPCION" class="java.lang.String"/>
+	<field name="ciudad_A_CIU_CODIGO" class="java.lang.String"/>
+	<field name="ciudad_A_CIU_NOMBRE" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="87ed5b78-a212-44e5-a421-687eb521a8f2"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="f4634aab-7899-481b-8739-d5c281b41a9c"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TITLE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="80e7296a-3a00-4cdb-a383-adb3cd00dbe1"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Add a description here]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="d8864282-7639-4649-b8a7-e08b20b0fb6c"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b6208df5-45d2-4811-90be-afd6495938df"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ciudad_CIU_CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="39" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="30fb629a-5120-48c2-a033-7803d668ce79"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ciudad_CIU_NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="78" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="5de1033f-1339-4959-9694-5fca3f3f6e4f"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[viajes_VIA_CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="117" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="aa7a7289-fa1c-41e1-b04a-3f23930cdd7b"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[viajes_AUT_PLACA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="156" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="1a8ea8ce-4e4e-4280-a04a-c6f0c5f2b08d"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[viajes_CIU_CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="195" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="664126d6-abf6-4db9-8806-498f5cc9549f"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[viajes_CIU_CIU_CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="234" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="a1e15d08-a928-4941-9e65-013611a47fe4"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[viajes_VIA_FECHASALIDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="273" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="49e5b91b-65d4-48ab-9d82-f95c7d39f145"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[viajes_VIA_FECHALLEGADA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="312" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="67bf3ca6-3e5e-4d54-a7b4-0d05f6f60683"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[viajes_VIA_HORASALIDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="351" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="e832c85a-52ba-4a95-b162-265f2b82b966"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[viajes_VIA_HORALLEGADA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="390" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="86724848-e00d-489e-81ed-93fd7ef31be5"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[viajes_VIA_COSTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="429" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="86b509c7-8004-4481-8bad-9afeb96d7fc8"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[viajes_VIA_DESCRIPCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="468" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="9ef272bb-f3b6-4077-982c-2e5e84ad7335"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ciudad_A_CIU_CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="507" y="0" width="39" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="d1880912-50ea-4ca7-b4e2-728ebf963c93"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ciudad_A_CIU_NOMBRE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="385ace1c-d32a-42ef-a366-18e6dc9a9b36"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="39" height="20" uuid="37ff1d00-0b6b-4d1b-b902-7169a2789161"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ciudad_CIU_CODIGO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="39" y="0" width="39" height="20" uuid="291d6fc6-bd45-4519-8702-469ffc18d52c"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ciudad_CIU_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="78" y="0" width="39" height="20" uuid="d43ae072-5bc6-4ae4-98cc-24094c010a32"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viajes_VIA_CODIGO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="117" y="0" width="39" height="20" uuid="a224c001-370a-45c3-a527-a7e2bc28fcdd"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viajes_AUT_PLACA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="156" y="0" width="39" height="20" uuid="4f8295be-6ced-4243-bccb-5edc4ce95108"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viajes_CIU_CODIGO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="195" y="0" width="39" height="20" uuid="9efa9a28-3bfa-47e6-ab96-04f77abc9c7b"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viajes_CIU_CIU_CODIGO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="234" y="0" width="39" height="20" uuid="fbe7c2de-f7a9-4a77-b93e-d81f99aedece"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viajes_VIA_FECHASALIDA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="273" y="0" width="39" height="20" uuid="9e3575bf-3652-44e6-bc76-d0b89140c8bd"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viajes_VIA_FECHALLEGADA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="312" y="0" width="39" height="20" uuid="01db46cd-24b6-4f29-b67f-a72c64cb31ce"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viajes_VIA_HORASALIDA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="351" y="0" width="39" height="20" uuid="0d6c719e-3fd4-4fec-8f94-a4a8b19218ac"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viajes_VIA_HORALLEGADA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="390" y="0" width="39" height="20" uuid="4f296e46-3caf-4982-b7a6-63db7e6fc948"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viajes_VIA_COSTO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="429" y="0" width="39" height="20" uuid="67165d82-b2ad-43f0-ba19-138959765b6b"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viajes_VIA_DESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="468" y="0" width="39" height="20" uuid="ffb18da5-799b-4b0a-b749-1ff746f94410"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ciudad_A_CIU_CODIGO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="507" y="0" width="39" height="20" uuid="ca2a1ba3-c762-4766-bd28-b5b53eef7312"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ciudad_A_CIU_NOMBRE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="dd495340-2541-48e3-ab85-49460c73bc30"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="d8ce33c1-1b96-421e-aad6-39c5df7aa2a2"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="0a2b6187-cde6-48d1-a680-b1976428e70d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="148">
+			<crosstab>
+				<reportElement x="0" y="0" width="555" height="148" uuid="dda2540c-9547-4682-b1fb-0f008872ffb6"/>
+				<rowGroup name="viajes_AUT_PLACA" width="70" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{viajes_AUT_PLACA}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25" uuid="2a9ccd42-6254-4a05-ba60-3b8b50695809"/>
+								<textFieldExpression><![CDATA[$V{viajes_AUT_PLACA}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="25" uuid="1645756b-f311-486c-9ca8-c58ec81672ca"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total viajes_AUT_PLACA]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="ciudad_CIU_NOMBRE" height="30" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{ciudad_CIU_NOMBRE}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="30" uuid="bb2591c0-62c3-4670-ab6c-98b5b15097b0"/>
+								<textFieldExpression><![CDATA[$V{ciudad_CIU_NOMBRE}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="30" uuid="06263540-7424-4f19-8696-c0e9550d43a3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total ciudad_CIU_NOMBRE]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="viajes_VIA_CODIGOMeasure" class="java.lang.Integer" calculation="Count">
+					<measureExpression><![CDATA[$F{viajes_VIA_CODIGO}]]></measureExpression>
+				</measure>
+				<crosstabCell width="50" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="23e4e329-62b3-4e48-a0be-93e005969b69"/>
+							<textFieldExpression><![CDATA[$V{viajes_VIA_CODIGOMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="viajes_AUT_PLACA">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="efc2ec8d-788c-4894-a373-af74b50a6c7a"/>
+							<textFieldExpression><![CDATA[$V{viajes_VIA_CODIGOMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="ciudad_CIU_NOMBRE">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="ae624f0b-44df-4167-af90-c136e4e38725"/>
+							<textFieldExpression><![CDATA[$V{viajes_VIA_CODIGOMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="viajes_AUT_PLACA" columnTotalGroup="ciudad_CIU_NOMBRE">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="1a1c2177-983c-4f2d-88d0-1f630fc05f00"/>
+							<textFieldExpression><![CDATA[$V{viajes_VIA_CODIGOMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>

@@ -71,7 +71,7 @@ public class AutosViaje extends javax.swing.JInternalFrame {
         conexionViaje cc = new conexionViaje();
         Connection cn = cc.conectar();
         String sql = "";
-        sql = "SELECT * FROM auto WHERE AUT_PLACA LIKE '%" + Dato + "%' AND AUT_ESTADO='1'  ORDER BY AUT_PLACA";
+        sql = "SELECT * FROM auto WHERE AUT_PLACA LIKE '%" + Dato + "%' AND AUT_ESTADO='1' ORDER BY AUT_PLACA";
         try {
             Statement psd = cn.createStatement();
             ResultSet rs = psd.executeQuery(sql);
@@ -302,7 +302,7 @@ public class AutosViaje extends javax.swing.JInternalFrame {
             PreparedStatement psd = cn.prepareStatement(sql);
             int n = psd.executeUpdate();
             if (n > 0) {
-                JOptionPane.showMessageDialog(null, "Se actualizo el registro correctamente ");
+                JOptionPane.showMessageDialog(null, "Se actualizó el registro correctamente ");
             }
             cargarTablaAutos("");
             txtLimpiar();

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec14dc85-ddb4-45ed-a587-ea509092571e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="5"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<queryString>
+		<![CDATA[SELECT
+     auto.`AUT_PLACA` AS auto_AUT_PLACA,
+     auto.`AUT_MARCA` AS auto_AUT_MARCA,
+     auto.`AUT_MODELO` AS auto_AUT_MODELO,
+     auto.`AUT_COLOR` AS auto_AUT_COLOR,
+     auto.`AUT_ANIO` AS auto_AUT_ANIO,
+     auto.`AUT_DESCRIPCION` AS auto_AUT_DESCRIPCION,
+     auto.`AUT_ESTADO` AS auto_AUT_ESTADO
+FROM
+     `auto` auto
+where auto.`AUT_ESTADO`=1]]>
+	</queryString>
+	<field name="auto_AUT_PLACA" class="java.lang.String"/>
+	<field name="auto_AUT_MARCA" class="java.lang.String"/>
+	<field name="auto_AUT_MODELO" class="java.lang.String"/>
+	<field name="auto_AUT_COLOR" class="java.lang.String"/>
+	<field name="auto_AUT_ANIO" class="java.lang.Integer"/>
+	<field name="auto_AUT_DESCRIPCION" class="java.lang.String"/>
+	<field name="auto_AUT_ESTADO" class="java.lang.String"/>
+	<variable name="auto_AUT_PLACA_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{auto_AUT_PLACA}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="46" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="47" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="9" splitType="Stretch"/>
+	</detail>
+	<summary>
+		<band height="334">
+			<stackedBar3DChart>
+				<chart>
+					<reportElement x="0" y="0" width="555" height="178" uuid="227fdd03-fa60-4203-b8f6-9874f93b8ece"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[ $V{auto_AUT_PLACA_1}]]></seriesExpression>
+						<categoryExpression><![CDATA[ $F{auto_AUT_PLACA}]]></categoryExpression>
+						<valueExpression><![CDATA[ $V{auto_AUT_PLACA_1}]]></valueExpression>
+						<labelExpression><![CDATA["REPORTE NUMERO DE AUTOS"]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</stackedBar3DChart>
+			<textField>
+				<reportElement x="55" y="153" width="100" height="20" uuid="031900c4-9e32-4a74-b150-2344a42c4dd3"/>
+				<textFieldExpression><![CDATA[$V{auto_AUT_PLACA_1}]]></textFieldExpression>
+			</textField>
+			<crosstab>
+				<reportElement x="0" y="178" width="555" height="156" uuid="eb642c7e-72a5-43a6-8d78-da6a6f5988e1"/>
+				<rowGroup name="auto_AUT_MARCA" width="70" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{auto_AUT_MARCA}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#00FFFF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25" uuid="c7c121e6-efaa-42fa-b20b-d3595ca52c7e"/>
+								<textFieldExpression><![CDATA[$V{auto_AUT_MARCA}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#BFFFFF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="25" uuid="b10db26e-1339-4fc3-aeea-818588ff6414"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total auto_AUT_MARCA]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="auto_AUT_MODELO" height="30" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{auto_AUT_MODELO}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#00FFFF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="30" uuid="c1d9a222-9254-47ee-8bec-2afb4ef2b892"/>
+								<textFieldExpression><![CDATA[$V{auto_AUT_MODELO}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#BFFFFF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="30" uuid="0306d736-bc70-43e3-b3a8-ad8f5302f8af"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total auto_AUT_MODELO]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="auto_AUT_PLACA_1Measure" class="java.lang.Integer" calculation="Count">
+					<measureExpression><![CDATA[$V{auto_AUT_PLACA_1}]]></measureExpression>
+				</measure>
+				<crosstabCell width="50" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="351777b4-510d-4aea-b0b0-05ec3fcf8d47"/>
+							<textFieldExpression><![CDATA[$V{auto_AUT_PLACA_1Measure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="auto_AUT_MARCA">
+					<cellContents backcolor="#BFFFFF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="5f5f9856-1d3c-4074-9bc8-a885b32eb4a5"/>
+							<textFieldExpression><![CDATA[$V{auto_AUT_PLACA_1Measure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="auto_AUT_MODELO">
+					<cellContents backcolor="#BFFFFF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="4a51158f-68b5-44b1-b75b-5ef499ce8ea6"/>
+							<textFieldExpression><![CDATA[$V{auto_AUT_PLACA_1Measure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="auto_AUT_MARCA" columnTotalGroup="auto_AUT_MODELO">
+					<cellContents backcolor="#BFFFFF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="015037cb-1986-425e-baf8-43bd390b9363"/>
+							<textFieldExpression><![CDATA[$V{auto_AUT_PLACA_1Measure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>

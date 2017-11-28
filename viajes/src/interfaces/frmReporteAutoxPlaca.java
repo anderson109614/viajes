@@ -170,8 +170,8 @@ public class frmReporteAutoxPlaca extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "SELECCIONE OPCION");
             } if (jComboBox1.getSelectedItem().equals("GENERAL")) {
 //                parametros.put("año", txtReportes.getText());
-                JasperReport reporte = JasperCompileManager.compileReport("src\\reportes\\reporteAuto.jrxml");
-                JasperPrint imprimir = JasperFillManager.fillReport(reporte, parametros, cn);
+                JasperReport reporte = JasperCompileManager.compileReport("src\\reportesGraficos\\rptAutos.jrxml");
+                JasperPrint imprimir = JasperFillManager.fillReport(reporte, null, cn);
                 JInternalFrame frame = new JInternalFrame("Reporte");
                 frame.getContentPane().add(new JRViewer(imprimir));
                 frame.pack();
